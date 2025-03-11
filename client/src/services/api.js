@@ -98,6 +98,8 @@ export const loginUser = async (username, password) => {
   }, {
     withCredentials: true
   });
+  // Store user data or token in local storage or state management
+  localStorage.setItem('user', JSON.stringify(response.data));
   return response.data;
 };
 

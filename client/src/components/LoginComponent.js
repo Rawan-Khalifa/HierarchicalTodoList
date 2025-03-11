@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
-import { loginUser, getTodoLists } from '../services/api';
+import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../services/api';
 
-const LoginComponent = ({ history }) => {
+const LoginComponent = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await loginUser(username, password);
-      // Fetch todo lists after successful login
-      const todoLists = await getTodoLists();
-      console.log('Todo Lists:', todoLists);
-      // Redirect to the todo list page
-      history.push('/todolists');
+      // Redirect to todo list page after successful login
+      navigate('/todolists');
     } catch (error) {
       console.error('Login failed:', error);
     }

@@ -10,14 +10,14 @@ def create_app():
     app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
     app.config['SESSION_COOKIE_SECURE'] = False  # or True if you have HTTPS
     app.config['SESSION_COOKIE_HTTPONLY'] = True
-    CORS(app,  supports_credentials=True, origins="http://localhost:3000")
+    CORS(app, supports_credentials=True, origins="http://localhost:3000")
     db.init_app(app)
 
-    #Initialize Flask-Login
+    # Initialize Flask-Login
     login_manager = LoginManager()
     login_manager.init_app(app)
     
-    #Disable default login_view redirect
+    # Disable default login_view redirect
     login_manager.login_view = None
     login_manager.login_message = None
 
@@ -33,8 +33,7 @@ def create_app():
         """
         return jsonify({"error": "Unauthorized"}), 401
 
-
-     # Add a global before_request handler for CORS preflight requests
+    # Add a global before_request handler for CORS preflight requests
     @app.before_request
     def handle_preflight():
         if request.method == "OPTIONS":
@@ -46,7 +45,7 @@ def create_app():
             }
             return jsonify(headers), 200
     
-    # # Register your blueprints (auth, todos, etc.)
+    # Register your blueprints (auth, todos, etc.)
     from routes.auth import auth_bp
     from routes.todos import todos_bp
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
