@@ -24,4 +24,5 @@ yarn-error.log*
 
 /.venv
 .env
-/client/.env
+/client/.venv
+/server/venv
