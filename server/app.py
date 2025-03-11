@@ -1,5 +1,6 @@
 from flask_cors import CORS
 from flask_login import LoginManager
+from flask_migrate import Migrate  # Added import
 from models import db, User
 import config
 from flask import Flask, jsonify, request
@@ -12,6 +13,9 @@ def create_app():
     app.config['SESSION_COOKIE_HTTPONLY'] = True
     CORS(app, supports_credentials=True, origins="http://localhost:3000")
     db.init_app(app)
+    
+    # Initialize Flask-Migrate
+    migrate = Migrate(app, db)  # Added Flask-Migrate initialization
 
     # Initialize Flask-Login
     login_manager = LoginManager()
@@ -55,6 +59,6 @@ def create_app():
 
 if __name__ == '__main__':
     app = create_app()
-    with app.app_context():
-        db.create_all()
+    # with app.app_context():
+    #    db.create_all()  # This will be replaced by migrations
     app.run(debug=True)

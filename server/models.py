@@ -16,7 +16,8 @@ class TodoList(db.Model):
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String(150), nullable=False)
+    title = db.Column(db.String(150), nullable=False)  # Changed from 'content' to 'title'
+    description = db.Column(db.Text, nullable=True)  # Added description field
     status = db.Column(db.String(20), default='Todo')
     list_id = db.Column(db.Integer, db.ForeignKey('todo_list.id'), nullable=False)
     list = db.relationship('TodoList', backref=db.backref('tasks', lazy=True))
@@ -29,4 +30,3 @@ def get_task_depth(task):
         task = task.parent
         depth += 1
     return depth
-

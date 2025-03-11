@@ -75,7 +75,7 @@ def add_task():
         # Check for duplicate subtask names under the same parent
         parent_task = Task.query.get_or_404(parent_id)
         existing_subtask = Task.query.filter_by(
-            content=title, 
+            title=title,  # Changed from content to title
             parent_id=parent_id
         ).first()
         
@@ -84,7 +84,7 @@ def add_task():
     else:
         # Check for duplicate top-level task names in the same list
         existing_task = Task.query.filter_by(
-            content=title, 
+            title=title,  # Changed from content to title
             list_id=list_id, 
             parent_id=None
         ).first()
@@ -102,7 +102,8 @@ def add_task():
             return jsonify({"error": "Max depth (3) reached"}), 400
 
     new_task = Task(
-        content=title,
+        title=title,  # Changed from content to title
+        description=description,  # Added description
         list_id=list_id,
         parent_id=parent_id,
         status=status
@@ -128,8 +129,8 @@ def get_tasks_for_list(list_id):
     def serialize_task(task):
         return {
             "id": task.id,
-            "title": task.content,
-            "description": "",
+            "title": task.title,  # Changed from content to title
+            "description": task.description or "",  # Use the description field
             "status": task.status,
             "list_id": task.list_id,
             "subtasks": [serialize_task(sub) for sub in task.subtasks]
@@ -155,11 +156,6 @@ def update_task_status(task_id):
     todo_list = TodoList.query.get_or_404(task.list_id)
     if todo_list.user_id != current_user.id:
         return jsonify({"error": "Not authorized"}), 403
-
-    # Update the task status
-    task.status = new_status
-    db.session.commit()
-    403
 
     # Update the task status
     task.status = new_status
@@ -278,4 +274,3 @@ def move_task(task_id):
         "new_list_id": task.list_id,
         "new_parent_id": task.parent_id
     }), 200
-
