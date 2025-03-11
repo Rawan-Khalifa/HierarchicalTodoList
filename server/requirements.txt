@@ -2,3 +2,5 @@ Flask
 SQLAlchemy
 Flask-CORS
 Flask-Migrate
+flask-login
+python-dotenv
