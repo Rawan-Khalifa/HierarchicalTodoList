@@ -1,59 +1,78 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../services/api';
-import './Login.css'; // Import the CSS file
+"use client"
+
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
+import "./Login.css"
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-  const navigate = useNavigate();
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { login, error } = useAuth()
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!username || !password) return
+
+    setIsSubmitting(true)
     try {
-      const data = await loginUser(username, password);
-      console.log("data:", data);
-      if (data.message === "Logged in successfully") {
-        setMessage(data.message);
-        navigate('/dashboard');
-      } else {
-        setMessage(data.error || 'Login failed');
-      }
-    } catch (error) {
-      const errMsg = error.response?.data?.error || 'Login failed';
-      setMessage(errMsg);
+      await login(username, password)
+    } finally {
+      setIsSubmitting(false)
     }
-  };
+  }
 
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <h2>Log in</h2>
-        <form onSubmit={handleLogin}>
-          <input
-            type="text"
-            placeholder="johndoe@gmail.com"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button type="submit">Log in</button>
+    <div className="auth-container">
+      <div className="auth-card">
+        <h1 className="auth-title">Welcome Back</h1>
+        <p className="auth-subtitle">Log in to access your tasks</p>
+
+        {error && <div className="auth-error">{error}</div>}
+
+        <form onSubmit={handleSubmit} className="auth-form">
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              placeholder="Enter your username"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Enter your password"
+            />
+          </div>
+
+          <button type="submit" className="auth-button" disabled={isSubmitting}>
+            {isSubmitting ? "Logging in..." : "Log In"}
+          </button>
         </form>
-        {message && <p className="message">{message}</p>}
-        <p className="signup-text">
-          or, <a href="/register">sign up</a>
-        </p>
+
+        <div className="auth-footer">
+          <p>
+            Don't have an account?{" "}
+            <Link to="/register" className="auth-link">
+              Sign Up
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default Login;
+
