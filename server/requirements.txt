@@ -1,4 +1,9 @@
-Flask
-SQLAlchemy
-Flask-CORS
-Flask-Migrate
+Flask==2.2.3
+Flask-Cors==3.0.10
+Flask-Login==0.6.2
+Flask-SQLAlchemy==3.0.3
+SQLAlchemy==2.0.4
+Flask-Migrate==4.0.4
+Flask-Script==2.0.6
+Werkzeug==2.2.3
+python-dotenv==1.0.0

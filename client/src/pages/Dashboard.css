@@ -1,0 +1,220 @@
+.dashboard {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .sidebar {
+    width: 280px;
+    background-color: var(--card-background);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: var(--shadow-sm);
+    z-index: 10;
+  }
+  
+  .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--accent-color); /* Changed to sky blue */
+    color: white;
+  }
+  
+  .app-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    letter-spacing: -0.025em;
+  }
+  
+  .create-list-button {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .create-list-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+  
+  .lists-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+  
+  .lists {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+  
+  .list-item:hover {
+    background-color: var(--hover-color);
+    transform: translateX(2px);
+  }
+  
+  .list-item.active {
+    background-color: var(--accent-light); /* Changed to light sky blue */
+    color: var(--accent-dark); /* Changed to dark sky blue */
+    font-weight: 500;
+  }
+  
+  .list-title {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .delete-list-button {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    margin-left: 0.5rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+    opacity: 0;
+  }
+  
+  .list-item:hover .delete-list-button {
+    opacity: 1;
+  }
+  
+  .delete-list-button:hover {
+    background-color: var(--error-light);
+    color: var(--error-color);
+  }
+  
+  .sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--secondary-light);
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .username {
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  
+  .logout-button {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+  }
+  
+  .logout-button:hover {
+    background-color: var(--hover-color);
+    color: var(--text-color);
+  }
+  
+  .main-content {
+    flex: 1;
+    overflow: auto;
+    padding: 2rem;
+    background-color: var(--background-color);
+  }
+  
+  .loading-message {
+    color: var(--text-light);
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .empty-lists {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+  
+  .empty-lists p {
+    margin-bottom: 1rem;
+  }
+  
+  .no-list-selected {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-light);
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .no-list-selected p {
+    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .dashboard {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+      height: auto;
+      max-height: 40vh;
+    }
+  
+    .main-content {
+      padding: 1rem;
+    }
+  }
+  
+  
