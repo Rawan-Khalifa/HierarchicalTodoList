@@ -1,7 +1,5 @@
 # HierarchicalTodoList
 
-NOTE: the size was too large as a single folder for Forum
-
 The web application allows users to create and manage hierarchical todo lists with up to three levels of nesting. Built with Flask backend, SQLAlchemy for the database and React frontend.
 
 [Here is the video demo](https://www.loom.com/share/6f742e32d8984fa698a70fac467c6a99?sid=e1454929-f53b-4d1f-8751-bd4bb887a8f1)
